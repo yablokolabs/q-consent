@@ -1,19 +1,72 @@
 'use client';
 
-import { Card, Typography } from 'antd';
+import { Card, Typography, Modal, Input, message } from 'antd';
 import { motion } from 'framer-motion';
-import ParticleBackground from '@/components/ParticleBackground';
-import QuantumGrid from '@/components/QuantumGrid';
-import QuantumWaves from '@/components/QuantumWaves';
-import TypewriterText from '@/components/TypewriterText';
-import GlowingButton from '@/components/GlowingButton';
+import { useState } from 'react';
+import ParticleBackground from '../components/ParticleBackground';
+import QuantumGrid from '../components/QuantumGrid';
+import QuantumWaves from '../components/QuantumWaves';
+import TypewriterText from '../components/TypewriterText';
+import GlowingButton from '../components/GlowingButton';
 
 const { Title, Text } = Typography;
 
 export default function Home() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '' });
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleNotifyMe = () => {
-    // Placeholder action - could open a modal or redirect to signup
-    console.log('Notify me clicked!');
+    setIsModalVisible(true);
+  };
+
+  const handleInputChange = (field: 'name' | 'email', value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = async () => {
+    if (!formData.name.trim()) {
+      message.error('Please enter your name');
+      return;
+    }
+    
+    if (!formData.email || !formData.email.includes('@')) {
+      message.error('Please enter a valid email address');
+      return;
+    }
+
+    setIsLoading(true);
+    
+    try {
+      const response = await fetch('https://formspree.io/f/mwpnqrow', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: 'Requesting notification for Q-Consent launch'
+        }),
+      });
+
+      if (response.ok) {
+        message.success(`Thank you ${formData.name}! You'll be notified when Q-Consent launches.`);
+        setIsModalVisible(false);
+        setFormData({ name: '', email: '' });
+      } else {
+        throw new Error('Failed to submit');
+      }
+    } catch (error) {
+      message.error('Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setFormData({ name: '', email: '' });
   };
 
   return (
@@ -29,7 +82,7 @@ export default function Home() {
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-cyan-500/5 to-transparent rounded-full animate-spin" style={{ animationDuration: '20s' }} />
 
       {/* Main Content */}
-      <div className="relative z-20 min-h-screen flex items-center justify-center p-4">
+      <div className="relative z-20 min-h-screen flex items-center justify-center p-4 pb-24">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -75,7 +128,8 @@ export default function Home() {
                   fontWeight: 900,
                   color: '#00ffff',
                   textAlign: 'center',
-                  lineHeight: 1.1
+                  lineHeight: 1.1,
+                  animation: 'quantum-glow 2s ease-in-out infinite alternate'
                 }}
               >
                 Q-Consent
@@ -158,7 +212,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-300" />
-                  <span>Quantum Security</span>
+                  <span>Quantum Annealing</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse delay-700" />
@@ -209,6 +263,156 @@ export default function Home() {
         }}
         className="fixed top-1/3 right-1/4 w-3 h-3 bg-green-400 rounded-full opacity-50 blur-sm"
       />
+
+      {/* Footer */}
+      <footer className="relative z-30 py-8 px-4 mt-16">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.5, duration: 0.8 }}
+            className="text-center"
+          >
+            <div className="h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent mb-6" />
+            <p className="text-gray-400 text-sm font-light tracking-wide">
+              © 2025 <a 
+                href="https://yablokolabs.com/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300 hover:glow"
+              >
+                Yabloko Labs
+              </a>. All rights reserved.
+            </p>
+          </motion.div>
+        </div>
+      </footer>
+
+      {/* Email Notification Modal */}
+      <Modal
+        title={
+          <span style={{ 
+            color: '#00ffff', 
+            fontFamily: 'Orbitron, monospace',
+            fontSize: '1.3rem',
+            fontWeight: 'bold'
+          }}>
+            🚀 Get Notified - Q-Consent Launch
+          </span>
+        }
+        open={isModalVisible}
+        onOk={handleSubmit}
+        onCancel={handleCancel}
+        okText="Notify Me"
+        cancelText="Cancel"
+        confirmLoading={isLoading}
+        width={480}
+        okButtonProps={{
+          style: {
+            background: 'linear-gradient(45deg, #00ffff, #ff00ff)',
+            border: 'none',
+            color: '#000',
+            fontWeight: 'bold',
+            height: '40px',
+            fontSize: '16px'
+          }
+        }}
+        cancelButtonProps={{
+          style: {
+            background: 'rgba(255, 255, 255, 0.1)',
+            border: '1px solid rgba(0, 255, 255, 0.3)',
+            color: '#00ffff',
+            height: '40px'
+          }
+        }}
+        style={{
+          fontFamily: 'Inter, sans-serif'
+        }}
+        bodyStyle={{
+          background: 'rgba(0, 20, 40, 0.95)',
+          color: '#fff',
+          padding: '32px 24px'
+        }}
+      >
+        <div style={{ marginTop: '16px' }}>
+          <p style={{ 
+            color: '#a0a0a0', 
+            marginBottom: '24px',
+            fontSize: '15px',
+            lineHeight: '1.5'
+          }}>
+            Be the first to experience quantum-powered compliance management. 
+            We'll notify you as soon as Q-Consent launches!
+          </p>
+          
+          {/* Name Input */}
+          <div style={{ marginBottom: '20px' }}>
+            <label style={{ 
+              display: 'block', 
+              color: '#00ffff', 
+              fontSize: '14px', 
+              fontWeight: '500',
+              marginBottom: '8px'
+            }}>
+              Full Name *
+            </label>
+            <Input
+              placeholder="Enter your full name"
+              value={formData.name}
+              onChange={(e) => handleInputChange('name', e.target.value)}
+              style={{
+                background: 'rgba(255, 255, 255, 0.1)',
+                border: '1px solid rgba(0, 255, 255, 0.3)',
+                color: '#fff',
+                borderRadius: '8px',
+                padding: '12px 16px',
+                fontSize: '15px',
+                height: '48px'
+              }}
+              className="quantum-input"
+            />
+          </div>
+
+          {/* Email Input */}
+          <div style={{ marginBottom: '8px' }}>
+            <label style={{ 
+              display: 'block', 
+              color: '#00ffff', 
+              fontSize: '14px', 
+              fontWeight: '500',
+              marginBottom: '8px'
+            }}>
+              Email Address *
+            </label>
+            <Input
+              type="email"
+              placeholder="your@email.com"
+              value={formData.email}
+              onChange={(e) => handleInputChange('email', e.target.value)}
+              onPressEnter={handleSubmit}
+              style={{
+                background: 'rgba(255, 255, 255, 0.1)',
+                border: '1px solid rgba(0, 255, 255, 0.3)',
+                color: '#fff',
+                borderRadius: '8px',
+                padding: '12px 16px',
+                fontSize: '15px',
+                height: '48px'
+              }}
+              className="quantum-input"
+            />
+          </div>
+          
+          <p style={{ 
+            color: '#666', 
+            fontSize: '12px',
+            fontStyle: 'italic',
+            marginTop: '8px'
+          }}>
+            We respect your privacy. No spam, just launch notifications.
+          </p>
+        </div>
+      </Modal>
     </main>
   );
 }

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter, Orbitron } from 'next/font/google';
 import { ConfigProvider } from 'antd';
+import Script from 'next/script';
+import SciFiCursor from '../components/SciFiCursor';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -14,7 +16,11 @@ export const metadata: Metadata = {
   description: 'Revolutionary quantum-powered compliance management platform. Coming soon.',
   keywords: 'compliance, quantum, AI, regulatory, technology',
   authors: [{ name: 'Q-Consent Team' }],
-  viewport: 'width=device-width, initial-scale=1',
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -25,6 +31,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.className} ${orbitron.variable}`}>
       <body className="antialiased">
+        {/* Cloudflare Web Analytics */}
+        <Script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "0a4ffd05e7584a91a456452a205ab033"}'
+          strategy="afterInteractive"
+        />
+        
         <ConfigProvider
           theme={{
             token: {
@@ -45,6 +59,7 @@ export default function RootLayout({
             },
           }}
         >
+          <SciFiCursor />
           {children}
         </ConfigProvider>
       </body>

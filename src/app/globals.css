@@ -10,6 +10,9 @@
   --quantum-accent: #00ff88;
   --quantum-purple: #8b5cf6;
   --quantum-blue: #3b82f6;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
 }
 
 * {
@@ -42,6 +45,26 @@ body {
     0 0 10px var(--quantum-primary),
     0 0 15px var(--quantum-primary),
     0 0 20px var(--quantum-primary);
+}
+
+@keyframes quantum-glow {
+  0% {
+    text-shadow: none;
+    filter: none;
+  }
+  50% {
+    text-shadow: 
+      0 0 10px var(--quantum-primary),
+      0 0 20px var(--quantum-primary),
+      0 0 30px var(--quantum-primary),
+      0 0 40px var(--quantum-primary),
+      0 0 50px var(--quantum-primary);
+    filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.8));
+  }
+  100% {
+    text-shadow: none;
+    filter: none;
+  }
 }
 
 .quantum-border {
@@ -145,4 +168,86 @@ body {
   box-shadow: 
     0 10px 25px rgba(0, 255, 255, 0.3),
     0 0 30px rgba(255, 0, 255, 0.2);
+}
+
+/* Additional utility classes */
+.font-orbitron {
+  font-family: 'Orbitron', monospace;
+}
+
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+@layer utilities {
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+}
+
+/* Modal and Input Styling */
+.quantum-input:focus {
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5) !important;
+  border-color: #00ffff !important;
+}
+
+.quantum-input::placeholder {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Sci-Fi Cursor Styles */
+* {
+  cursor: none !important;
+}
+
+.sci-fi-cursor {
+  animation: cursor-pulse 2s ease-in-out infinite;
+}
+
+.sci-fi-cursor.cursor-hover {
+  width: 20px !important;
+  height: 20px !important;
+  background: radial-gradient(circle, #ff00ff 0%, rgba(255, 0, 255, 0.6) 70%, transparent 100%) !important;
+  border: 2px solid #ff00ff !important;
+  animation: cursor-hover-pulse 0.8s ease-in-out infinite !important;
+}
+
+.sci-fi-cursor-trail.cursor-hover {
+  width: 50px !important;
+  height: 50px !important;
+  background: radial-gradient(circle, rgba(255, 0, 255, 0.2) 0%, transparent 70%) !important;
+  border: 2px solid rgba(255, 0, 255, 0.4) !important;
+}
+
+/* Cursor Animations */
+@keyframes cursor-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff;
+  }
+  50% {
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+  }
+}
+
+@keyframes cursor-hover-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px #ff00ff, 0 0 15px #ff00ff, 0 0 25px #ff00ff;
+  }
+  50% {
+    box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff, 0 0 45px #ff00ff;
+  }
+}
+
+/* Remove default cursors */
+button, a, input, textarea, select, [role="button"] {
+  cursor: none !important;
+}
+
+button:hover, a:hover, input:hover, textarea:hover, select:hover, [role="button"]:hover {
+  cursor: none !important;
 }
