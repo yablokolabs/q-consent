@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { Button } from 'antd';
-import { motion } from 'framer-motion';
-import { Bell } from 'lucide-react';
+import { Button } from "antd";
+import { motion } from "framer-motion";
+import { Bell } from "lucide-react";
 
 interface GlowingButtonProps {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ interface GlowingButtonProps {
   className?: string;
 }
 
-export default function GlowingButton({ children, onClick, className = '' }: GlowingButtonProps) {
+export default function GlowingButton({ children, onClick, className = "" }: GlowingButtonProps) {
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
@@ -24,9 +24,9 @@ export default function GlowingButton({ children, onClick, className = '' }: Glo
         onClick={onClick}
         className="quantum-button h-14 px-8 text-lg font-semibold border-0 rounded-xl relative overflow-hidden group"
         style={{
-          background: 'linear-gradient(45deg, #00ffff, #ff00ff)',
-          color: '#000',
-          fontFamily: 'Orbitron, monospace'
+          background: "linear-gradient(45deg, #00ffff, #ff00ff)",
+          color: "#000",
+          fontFamily: "Orbitron, monospace",
         }}
       >
         <span className="relative z-10">{children}</span>

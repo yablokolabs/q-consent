@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 interface Particle {
   x: number;
@@ -19,12 +19,12 @@ export default function ParticleBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     const particles: Particle[] = [];
     const particleCount = 100;
-    const colors = ['#00ffff', '#ff00ff', '#00ff88', '#8b5cf6'];
+    const colors = ["#00ffff", "#ff00ff", "#00ff88", "#8b5cf6"];
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -38,7 +38,7 @@ export default function ParticleBackground() {
       vy: (Math.random() - 0.5) * 0.5,
       size: Math.random() * 3 + 1,
       opacity: Math.random() * 0.8 + 0.2,
-      color: colors[Math.floor(Math.random() * colors.length)]
+      color: colors[Math.floor(Math.random() * colors.length)],
     });
 
     const initParticles = () => {
@@ -106,13 +106,13 @@ export default function ParticleBackground() {
     initParticles();
     animate();
 
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       resizeCanvas();
       initParticles();
     });
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener("resize", resizeCanvas);
     };
   }, []);
 
@@ -120,7 +120,7 @@ export default function ParticleBackground() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 w-full h-full pointer-events-none z-0"
-      style={{ background: 'radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%)' }}
+      style={{ background: "radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%)" }}
     />
   );
 }

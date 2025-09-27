@@ -1,25 +1,25 @@
-import type { Metadata } from 'next';
-import { Inter, Orbitron } from 'next/font/google';
-import { ConfigProvider } from 'antd';
-import Script from 'next/script';
-import SciFiCursor from '../components/SciFiCursor';
-import './globals.css';
+import { ConfigProvider } from "antd";
+import type { Metadata } from "next";
+import { Inter, Orbitron } from "next/font/google";
+import Script from "next/script";
+import SciFiCursor from "../components/SciFiCursor";
+import "./globals.css";
 
-const inter = Inter({ subsets: ['latin'] });
-const orbitron = Orbitron({ 
-  subsets: ['latin'],
-  variable: '--font-orbitron'
+const inter = Inter({ subsets: ["latin"] });
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  variable: "--font-orbitron",
 });
 
 export const metadata: Metadata = {
-  title: 'Q-Consent - The Quantum way to Dynamic Compliance',
-  description: 'Revolutionary quantum-powered compliance management platform. Coming soon.',
-  keywords: 'compliance, quantum, AI, regulatory, technology',
-  authors: [{ name: 'Q-Consent Team' }],
+  title: "Q-Consent - The Quantum way to Dynamic Compliance",
+  description: "Revolutionary quantum-powered compliance management platform. Coming soon.",
+  keywords: "compliance, quantum, AI, regulatory, technology",
+  authors: [{ name: "Q-Consent Team" }],
 };
 
 export const viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
 };
 
@@ -38,23 +38,23 @@ export default function RootLayout({
           data-cf-beacon='{"token": "0a4ffd05e7584a91a456452a205ab033"}'
           strategy="afterInteractive"
         />
-        
+
         <ConfigProvider
           theme={{
             token: {
-              colorPrimary: '#00ffff',
-              colorBgContainer: 'rgba(0, 20, 40, 0.3)',
-              colorText: '#ffffff',
+              colorPrimary: "#00ffff",
+              colorBgContainer: "rgba(0, 20, 40, 0.3)",
+              colorText: "#ffffff",
               borderRadius: 12,
-              fontFamily: 'Inter, sans-serif',
+              fontFamily: "Inter, sans-serif",
             },
             components: {
               Button: {
-                primaryShadow: '0 4px 15px rgba(0, 255, 255, 0.3)',
+                primaryShadow: "0 4px 15px rgba(0, 255, 255, 0.3)",
               },
               Card: {
-                colorBgContainer: 'rgba(0, 20, 40, 0.3)',
-                colorBorderSecondary: 'rgba(0, 255, 255, 0.2)',
+                colorBgContainer: "rgba(0, 20, 40, 0.3)",
+                colorBorderSecondary: "rgba(0, 255, 255, 0.2)",
               },
             },
           }}

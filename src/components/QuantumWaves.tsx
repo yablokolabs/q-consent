@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 export default function QuantumWaves() {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -9,7 +9,7 @@ export default function QuantumWaves() {
     const svg = svgRef.current;
     if (!svg) return;
 
-    const paths = svg.querySelectorAll('path');
+    const paths = svg.querySelectorAll("path");
     let animationId: number;
 
     const animate = (timestamp: number) => {
@@ -17,17 +17,17 @@ export default function QuantumWaves() {
         const offset = timestamp * 0.001 + index * 0.5;
         const amplitude = 30 + Math.sin(offset) * 10;
         const frequency = 0.02 + index * 0.005;
-        
+
         let pathData = `M 0 ${svg.clientHeight / 2}`;
-        
+
         for (let x = 0; x <= svg.clientWidth; x += 10) {
           const y = svg.clientHeight / 2 + Math.sin(x * frequency + offset) * amplitude;
           pathData += ` L ${x} ${y}`;
         }
-        
-        path.setAttribute('d', pathData);
+
+        path.setAttribute("d", pathData);
       });
-      
+
       animationId = requestAnimationFrame(animate);
     };
 

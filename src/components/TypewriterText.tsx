@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
 
 interface TypewriterTextProps {
   text: string;
@@ -9,13 +9,13 @@ interface TypewriterTextProps {
   className?: string;
 }
 
-export default function TypewriterText({ 
-  text, 
-  delay = 0, 
-  speed = 100, 
-  className = '' 
+export default function TypewriterText({
+  text,
+  delay = 0,
+  speed = 100,
+  className = "",
 }: TypewriterTextProps) {
-  const [displayText, setDisplayText] = useState('');
+  const [displayText, setDisplayText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
 
@@ -41,9 +41,7 @@ export default function TypewriterText({
   return (
     <span className={className}>
       {displayText}
-      {showCursor && (
-        <span className="inline-block w-0.5 h-6 bg-cyan-400 ml-1 animate-pulse" />
-      )}
+      {showCursor && <span className="inline-block w-0.5 h-6 bg-cyan-400 ml-1 animate-pulse" />}
     </span>
   );
 }
