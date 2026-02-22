@@ -278,7 +278,7 @@ export default function Home() {
           >
             <div className="h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent mb-6" />
             <p className="text-gray-400 text-sm font-light tracking-wide">
-              © 2025{" "}
+              © 2025-2026{" "}
               <a
                 href="https://yablokolabs.com/"
                 target="_blank"
